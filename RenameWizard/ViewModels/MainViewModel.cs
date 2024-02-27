@@ -14,6 +14,8 @@ namespace RenameWizard.ViewModels
             Files = [];
             TextStyle = TextStyle.KeepIt;
             ExtensionStyle = ExtensionStyle.LowerCase;
+            NumerationType = NumerationType.Simple;
+            Order = Order.TextNumber;
             StartNumber = 0;
         }
 
@@ -162,7 +164,11 @@ namespace RenameWizard.ViewModels
 
         public ICommand RenameCommand => new RelayCommand((obj) =>
         {
-            // TODO
+            foreach (FileModel file in Files)
+            {
+                File.Move(Path.Combine(file.Path, file.Source), Path.Combine(file.Path, file.Destination));
+                file.Source = file.Destination;
+            }
         },
         (obj) => Files.Count > 0);
 

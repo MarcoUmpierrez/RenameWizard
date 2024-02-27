@@ -92,6 +92,16 @@ namespace RenameWizard
         }
         #endregion RenameButton
 
+        #region RestoreSourceButton
+        private void RestoreSourceButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (DataContext != null && DataContext is MainViewModel viewModel)
+            {
+                viewModel.Help = "Restores the source name into the destination column for restarting the edition";
+            }
+        }
+        #endregion RestoreSourceButton
+
         private void Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (DataContext != null && DataContext is MainViewModel viewModel)
@@ -100,12 +110,5 @@ namespace RenameWizard
             }
         }
 
-        private void RestoreSourceButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (DataContext != null && DataContext is MainViewModel viewModel)
-            {
-                viewModel.Help = "Restores the source name into the destination column for restarting the edition";
-            }
-        }
     }
 }
