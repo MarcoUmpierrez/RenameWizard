@@ -1,12 +1,349 @@
-﻿<Window x:Class="RenameWizard.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RenameWizard"
-        mc:Ignorable="d"
-        Title="Rename Wizard" Height="450" Width="800">
-    <Grid>
+﻿<Window
+    x:Class="RenameWizard.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:RenameWizard"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:RenameWizard.ViewModels"
+    Title="Rename Wizard"
+    Width="800"
+    Height="600"
+    mc:Ignorable="d">
 
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="3" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Background" Value="Transparent" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="LightGray" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="CheckBox">
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="Padding" Value="3" />
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" TargetType="Separator" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" TabStripPlacement="Top">
+            <!--#region Data Tab-->
+            <TabItem Header="Data">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" MinWidth="400" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--#region Side Panel-->
+                    <Grid Grid.Column="0" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            x:Name="SelectFilesButton"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            Click="SelectFilesButton_Click"
+                            Content="Select Files"
+                            MouseEnter="SelectFilesButton_MouseEnter"
+                            MouseLeave="Button_MouseLeave" />
+
+                        <Button
+                            x:Name="RestoreSourceButton"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Command="{Binding RestoreSourceCommand}"
+                            Content="Restore names"
+                            MouseEnter="RestoreSourceButton_MouseEnter"
+                            MouseLeave="Button_MouseLeave" />
+
+                        <Button
+                            x:Name="PreviewButton"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Command="{Binding PreviewCommand}"
+                            Content="Preview"
+                            MouseEnter="PreviewButton_MouseEnter"
+                            MouseLeave="Button_MouseLeave" />
+                        <Button
+                            x:Name="RenameButton"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Command="{Binding RenameCommand}"
+                            Content="Rename"
+                            MouseEnter="RenameButton_MouseEnter"
+                            MouseLeave="Button_MouseLeave" />
+                    </Grid>
+                    <!--#endregion Side Panel-->
+
+                    <Separator
+                        Grid.Column="1"
+                        Margin="5"
+                        Background="Gray" />
+
+                    <DataGrid
+                        Grid.Column="2"
+                        AlternatingRowBackground="LightGray"
+                        AutoGenerateColumns="False"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        CanUserAddRows="False"
+                        CanUserResizeRows="False"
+                        HorizontalGridLinesBrush="Gray"
+                        ItemsSource="{Binding Files}"
+                        RowBackground="White"
+                        RowHeaderWidth="20"
+                        VerticalGridLinesBrush="Gray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="1*"
+                                Binding="{Binding Source}"
+                                Header="Source"
+                                IsReadOnly="True" />
+
+                            <DataGridTextColumn
+                                Width="1*"
+                                Binding="{Binding Destination}"
+                                Header="Destination"
+                                IsReadOnly="False" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
+            <!--#endregion Data Tab-->
+
+            <!--#region Options Tab-->
+            <TabItem Header="Options">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox
+                        Grid.Row="0"
+                        Content="Keep source name"
+                        IsChecked="{Binding KeepSourceName}" />
+
+                    <Grid Grid.Row="1" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Text Style" />
+                        <ComboBox
+                            Grid.Column="1"
+                            SelectedValue="{Binding TextStyle}"
+                            SelectedValuePath="Tag">
+                            <ComboBoxItem Content="Keep it" Tag="{x:Static local:TextStyle.KeepIt}" />
+                            <ComboBoxItem Content="Capital letter" Tag="{x:Static local:TextStyle.CapitalLetter}" />
+                            <ComboBoxItem Content="Title case" Tag="{x:Static local:TextStyle.TitleCase}" />
+                            <ComboBoxItem Content="Upper case" Tag="{x:Static local:TextStyle.UpperCase}" />
+                            <ComboBoxItem Content="Lower case" Tag="{x:Static local:TextStyle.LowerCase}" />
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Extension Style" />
+                        <ComboBox
+                            Grid.Column="1"
+                            SelectedValue="{Binding ExtensionStyle}"
+                            SelectedValuePath="Tag">
+                            <ComboBoxItem Content="Upper case" Tag="{x:Static local:ExtensionStyle.UpperCase}" />
+                            <ComboBoxItem Content="Lower case" Tag="{x:Static local:ExtensionStyle.LowerCase}" />
+                        </ComboBox>
+                    </Grid>
+
+                    <GroupBox
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Padding="5">
+                        <GroupBox.Header>
+                            <CheckBox Content="Replace Extension" IsChecked="{Binding ReplaceExtension}" />
+                        </GroupBox.Header>
+                        <TextBox IsEnabled="{Binding ReplaceExtension}" Text="{Binding Extension, UpdateSourceTrigger=PropertyChanged}" />
+                    </GroupBox>
+
+                    <GroupBox
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Padding="5">
+                        <GroupBox.Header>
+                            <CheckBox Content="Add custom text" IsChecked="{Binding AddText}" />
+                        </GroupBox.Header>
+                        <TextBox IsEnabled="{Binding AddText}" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+                    </GroupBox>
+
+                    <GroupBox
+                        Grid.Row="5"
+                        Grid.ColumnSpan="2"
+                        Padding="5">
+                        <GroupBox.Header>
+                            <CheckBox Content="Add numeration" IsChecked="{Binding AddNumbers}" />
+                        </GroupBox.Header>
+
+                        <Grid
+                            Grid.Row="1"
+                            Margin="5"
+                            IsEnabled="{Binding AddNumbers}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Numeration type" />
+                            <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                SelectedValue="{Binding NumerationType}"
+                                SelectedValuePath="Tag">
+                                <ComboBoxItem Content="Simple (1, 2, 3, 4...)" Tag="{x:Static local:NumerationType.Simple}" />
+                                <ComboBoxItem Content="Smart (08, 09, 10... | 008, 009, 010... | 098, 099, 100...)" Tag="{x:Static local:NumerationType.Smart}" />
+                                <ComboBoxItem Content="Find in file" Tag="{x:Static local:NumerationType.FindInFile}" />
+                            </ComboBox>
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Start with..." />
+                            <local:NumberTextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Width="150"
+                                Margin="0 5 0 5"
+                                HorizontalAlignment="Left"
+                                Value="{Binding StartNumber}">
+                                <local:NumberTextBlock.Style>
+                                    <Style TargetType="{x:Type local:NumberTextBlock}">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NumerationType}" Value="{x:Static local:NumerationType.Simple}">
+                                                <Setter Property="IsEnabled" Value="True" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </local:NumberTextBlock.Style>
+                            </local:NumberTextBlock>
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Order" />
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsEnabled="{Binding AddText}"
+                                SelectedValue="{Binding Order}"
+                                SelectedValuePath="Tag">
+                                <ComboBoxItem Content="Text | Number" Tag="{x:Static local:Order.TextNumber}" />
+                                <ComboBoxItem Content="Number | Text" Tag="{x:Static local:Order.NumberText}" />
+                            </ComboBox>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox
+                        Grid.Row="6"
+                        Grid.ColumnSpan="2"
+                        Padding="5">
+                        <GroupBox.Header>
+                            <CheckBox Content="Replace text" IsChecked="{Binding ReplaceText}" />
+                        </GroupBox.Header>
+                        <Grid IsEnabled="{Binding ReplaceText}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Subtext source" />
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0 5 0 5"
+                                Text="{Binding SubTextSource, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Subtext destination" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0 5 0 5"
+                                Text="{Binding SubTextDestination, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </GroupBox>
+
+
+                </Grid>
+            </TabItem>
+            <!--#endregion Options Tab-->
+        </TabControl>
+        <TextBlock
+            Grid.Row="1"
+            Padding="3"
+            Text="{Binding Help}" />
     </Grid>
 </Window>
