@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RenameWizard
+namespace RenameWizard.Controls
 {
     /// <summary>
     /// Lógica de interacción para NumberTextBlock.xaml

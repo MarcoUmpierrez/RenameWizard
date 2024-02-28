@@ -4,7 +4,7 @@ using Microsoft.Win32;
 using RenameWizard.Models;
 using RenameWizard.ViewModels;
 
-namespace RenameWizard
+namespace RenameWizard.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -102,6 +102,26 @@ namespace RenameWizard
         }
         #endregion RestoreSourceButton
 
+        #region UpButton
+        private void UpButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (DataContext != null && DataContext is MainViewModel viewModel)
+            {
+                viewModel.Help = "Moves the selected row up";
+            }
+        }
+        #endregion UpButton
+
+        #region DownButton
+        private void DownButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (DataContext != null && DataContext is MainViewModel viewModel)
+            {
+                viewModel.Help = "Moves the selected row down";
+            }
+        }
+        #endregion DownButton
+
         private void Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (DataContext != null && DataContext is MainViewModel viewModel)
@@ -109,6 +129,5 @@ namespace RenameWizard
                 viewModel.Help = Title;
             }
         }
-
     }
 }
