@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
-using RenameWizard.Managers;
+using RenameWizard.Handlers;
 using RenameWizard.Models;
 
 namespace RenameWizard.ViewModels
@@ -114,27 +114,22 @@ namespace RenameWizard.ViewModels
         #region Commands
         public ICommand PreviewCommand => new RelayCommand((obj) =>
         {
-            var manager = new FileManager(
-                ReplaceText,
-                KeepSourceName,
-                AddText,
-                AddNumbers,
-                ReplaceExtension,
-                SubTextSource,
-                SubTextDestination,
-                Text,
-                Extension,
-                Files.Count,
-                StartNumber,
-                NumerationType,
-                Order,
-                TextStyle,
-                ExtensionStyle
-            );
+            IRenameHandler replaceHandler = new ReplaceTextHandler(this.ReplaceText, this.SubTextSource, this.SubTextDestination);
+            IRenameHandler addNameHandler = new AddTextHandler(this.KeepSourceName, this.AddText, this.Text);
+            IRenameHandler numberHandler = new NumberHandler(this.AddNumbers, this.NumerationType, this.Order, this.Files.Count, this.StartNumber);
+            IRenameHandler textStyleHandler = new StyleNameHandler(this.TextStyle);
+            IRenameHandler extensionHandler = new StyleExtensionHandler(this.ReplaceExtension, this.ExtensionStyle, this.Extension);
+
+            replaceHandler.SetHandler(addNameHandler);
+            addNameHandler.SetHandler(numberHandler);
+            numberHandler.SetHandler(textStyleHandler);
+            textStyleHandler.SetHandler(extensionHandler);
 
             foreach (FileModel file in Files)
             {
-                file.Destination = manager.Rename(file.Destination);
+                string name = Path.GetFileNameWithoutExtension(file.Destination);
+                string ext = Path.GetExtension(file.Destination);
+                file.Destination = replaceHandler.Rename(name, ext);
             }
         },
         (obj) => Files.Count > 0);

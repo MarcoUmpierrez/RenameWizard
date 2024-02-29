@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Text.RegularExpressions;
 
-namespace RenameWizard.Strategies
+namespace RenameWizard.Handlers
 {
-    public class NumberStrategy : IRenameStrategy
+    public class NumberHandler : IRenameHandler
     {
         private readonly bool addNumber;
         private readonly NumerationType type;
         private readonly Order order;
         private readonly int totalFiles;
         private int count;
+        private IRenameHandler handler;
 
-        public NumberStrategy(bool addNumber, NumerationType type, Order order, int totalFiles, int count)
+        public NumberHandler(bool addNumber, NumerationType type, Order order, int totalFiles, int count)
         {
             this.addNumber = addNumber;
             this.type = type;
@@ -24,39 +19,44 @@ namespace RenameWizard.Strategies
             this.totalFiles = totalFiles;
             this.count = count;
         }
-        public string Rename(string fileName)
+        public string Rename(string name, string ext)
         {
-            string name = fileName;
-            if (addNumber)
+            string fileName = name;
+            if (this.addNumber)
             {
                 string number = string.Empty;
-                switch (type)
+                switch (this.type)
                 {
                     case NumerationType.Simple:
-                        number = $"{count++}";
+                        number = $"{this.count++}";
                         break;
 
                     case NumerationType.Smart:
-                        number = FindSmartNumber(count++, totalFiles);
+                        number = this.FindSmartNumber(this.count++, this.totalFiles);
                         break;
 
                     case NumerationType.FindInFile:
-                        number = FindNumberInFile(name);
+                        number = this.FindNumberInFile(fileName);
                         break;
                 }
 
-                switch (order)
+                switch (this.order)
                 {
                     case Order.TextNumber:
-                        name = $"{number}{name}";
+                        fileName = $"{fileName}{number}";
                         break;
                     case Order.NumberText:
-                        name = $"{name}{number}";
+                        fileName = $"{number}{fileName}";
                         break;
                 }
             }
 
-            return name;
+            return this.handler?.Rename(fileName, ext) ?? $"{fileName}{ext}";
+        }
+
+        public void SetHandler(IRenameHandler handler)
+        {
+            this.handler = handler;
         }
 
         private string FindSmartNumber(int count, int total)
@@ -71,15 +71,7 @@ namespace RenameWizard.Strategies
             // of a number in the input text
             string pattern = @"\d+";
             Match match = Regex.Match(input, pattern);
-
-            if (match.Success)
-            {
-                return match.Value;
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return match.Success ? match.Value : string.Empty;
         }
     }
 }
