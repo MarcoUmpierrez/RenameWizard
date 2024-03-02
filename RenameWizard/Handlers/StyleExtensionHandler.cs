@@ -1,6 +1,6 @@
 ﻿namespace RenameWizard.Handlers
 {
-    class StyleExtensionHandler : IRenameHandler
+    public class StyleExtensionHandler : IRenameHandler
     {
         private readonly bool replaceExtension;
         private readonly ExtensionStyle style;

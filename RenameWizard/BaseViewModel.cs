@@ -5,7 +5,7 @@ namespace RenameWizard
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        private readonly Dictionary<string, object> _properties = [];
+        private readonly Dictionary<string, object> _properties = new();
 
         public event PropertyChangedEventHandler PropertyChanged;
 

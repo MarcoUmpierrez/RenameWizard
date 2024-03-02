@@ -1,6 +1,6 @@
 ﻿namespace RenameWizard.Handlers
 {
-    class ReplaceTextHandler : IRenameHandler
+    public class ReplaceTextHandler : IRenameHandler
     {
         private readonly bool doReplacement;
         private readonly string str1;

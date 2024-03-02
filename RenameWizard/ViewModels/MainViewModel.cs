@@ -10,7 +10,7 @@ namespace RenameWizard.ViewModels
     {
         public MainViewModel()
         {
-            Files = [];
+            Files = new();
             TextStyle = TextStyle.KeepIt;
             ExtensionStyle = ExtensionStyle.LowerCase;
             NumerationType = NumerationType.Simple;
