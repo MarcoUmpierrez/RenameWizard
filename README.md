@@ -15,5 +15,4 @@ Usage:
     Preview the changes to ensure accuracy.
     Confirm the changes by clicking the "Rename" button.
 
-![Data Tab](data_tab.png)
-![Options Tab](options_tab.png)
+![screenshot](screenshot.png)

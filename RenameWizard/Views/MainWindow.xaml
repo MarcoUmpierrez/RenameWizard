@@ -50,127 +50,98 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" TabStripPlacement="Top">
-            <!--#region Data Tab-->
-            <TabItem Header="Data">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" MinWidth="400" />
-                    </Grid.ColumnDefinitions>
 
-                    <!--#region Side Panel-->
-                    <Grid Grid.Column="0" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
+        <!--#region ToolBar-->
+        <ToolBar Grid.Row="0" ToolBarTray.IsLocked="True">
 
-                        <Button
-                            x:Name="SelectFilesButton"
-                            Grid.Row="0"
-                            Grid.ColumnSpan="2"
-                            Click="SelectFilesButton_Click"
-                            Content="Select Files"
-                            MouseEnter="SelectFilesButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
+            <Button
+                x:Name="SelectFilesButton"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Click="SelectFilesButton_Click"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="SelectFilesButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Select files" />
 
-                        <Button
-                            x:Name="RestoreSourceButton"
-                            Grid.Row="1"
-                            Grid.ColumnSpan="2"
-                            Command="{Binding RestoreSourceCommand}"
-                            Content="Restore names"
-                            MouseEnter="RestoreSourceButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
+            <Button
+                x:Name="RestoreSourceButton"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Command="{Binding RestoreSourceCommand}"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="RestoreSourceButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Restore names" />
 
-                        <Button
-                            x:Name="UpButton"
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Command="{Binding MoveRowUpCommand}"
-                            Content="Up"
-                            MouseEnter="UpButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
-                        <Button
-                            x:Name="DownButton"
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Command="{Binding MoveRowDownCommand}"
-                            Content="Down"
-                            MouseEnter="DownButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
+            <Separator />
 
-                        <Button
-                            x:Name="PreviewButton"
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            Command="{Binding PreviewCommand}"
-                            Content="Preview"
-                            MouseEnter="PreviewButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
-                        <Button
-                            x:Name="RenameButton"
-                            Grid.Row="4"
-                            Grid.Column="1"
-                            Command="{Binding RenameCommand}"
-                            Content="Rename"
-                            MouseEnter="RenameButton_MouseEnter"
-                            MouseLeave="Button_MouseLeave" />
-                    </Grid>
-                    <!--#endregion Side Panel-->
+            <Button
+                x:Name="UpButton"
+                Grid.Row="2"
+                Grid.Column="0"
+                Command="{Binding MoveRowUpCommand}"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="UpButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Move selected row up" />
 
-                    <Separator
-                        Grid.Column="1"
-                        Margin="5"
-                        Background="Gray" />
+            <Button
+                x:Name="DownButton"
+                Grid.Row="2"
+                Grid.Column="1"
+                Command="{Binding MoveRowDownCommand}"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="DownButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Move selected row down" />
 
-                    <DataGrid
-                        Grid.Column="2"
-                        AlternatingRowBackground="LightGray"
-                        AutoGenerateColumns="False"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
-                        CanUserAddRows="False"
-                        CanUserResizeRows="False"
-                        HorizontalGridLinesBrush="Gray"
-                        ItemsSource="{Binding Files}"
-                        RowBackground="White"
-                        RowHeaderWidth="20"
-                        SelectedItem="{Binding SelectedRow}"
-                        VerticalGridLinesBrush="Gray">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn
-                                Width="1*"
-                                Binding="{Binding Source}"
-                                Header="Source"
-                                IsReadOnly="True" />
+            <Separator />
 
-                            <DataGridTextColumn
-                                Width="1*"
-                                Binding="{Binding Destination}"
-                                Header="Destination"
-                                IsReadOnly="False" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+            <Button
+                x:Name="PreviewButton"
+                Grid.Row="4"
+                Grid.Column="0"
+                Command="{Binding PreviewCommand}"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="PreviewButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Preview names" />
 
-                </Grid>
-            </TabItem>
-            <!--#endregion Data Tab-->
+            <Button
+                x:Name="RenameButton"
+                Grid.Row="4"
+                Grid.Column="1"
+                Command="{Binding RenameCommand}"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                MouseEnter="RenameButton_MouseEnter"
+                MouseLeave="Button_MouseLeave"
+                ToolTip="Rename files" />
+        </ToolBar>
+        <!--#endregion ToolBar-->
 
-            <!--#region Options Tab-->
-            <TabItem Header="Options">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" MinWidth="400" />
+            </Grid.ColumnDefinitions>
+
+            <!--#region Side Panel-->
+            <ScrollViewer
+                Grid.Column="0"
+                HorizontalScrollBarVisibility="Hidden"
+                VerticalScrollBarVisibility="Auto">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -370,12 +341,46 @@
                     <!--#endregion Replace text-->
 
                 </Grid>
-            </TabItem>
-            <!--#endregion Options Tab-->
+            </ScrollViewer>
+            <!--#endregion Side Panel-->
 
-        </TabControl>
+            <Separator
+                Grid.Column="1"
+                Margin="5"
+                Background="Gray" />
+
+            <DataGrid
+                Grid.Column="2"
+                AlternatingRowBackground="LightGray"
+                AutoGenerateColumns="False"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                CanUserAddRows="False"
+                CanUserResizeRows="False"
+                HorizontalGridLinesBrush="Gray"
+                ItemsSource="{Binding Files}"
+                RowBackground="White"
+                RowHeaderWidth="20"
+                SelectedItem="{Binding SelectedRow}"
+                VerticalGridLinesBrush="Gray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding Source}"
+                        Header="Source"
+                        IsReadOnly="True" />
+
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding Destination}"
+                        Header="Destination"
+                        IsReadOnly="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
         <TextBlock
-            Grid.Row="1"
+            Grid.Row="2"
             Padding="3"
             Text="{Binding Help}" />
     </Grid>
