@@ -56,78 +56,84 @@
         </Grid.RowDefinitions>
 
         <!--#region ToolBar-->
-        <ToolBar Grid.Row="0" ToolBarTray.IsLocked="True">
+        <Border
+            Grid.Row="0"
+            Padding="0 2 0 2"
+            BorderBrush="LightGray"
+            BorderThickness="0 1 0 1">
+            <StackPanel Orientation="Horizontal">
 
-            <Button
-                x:Name="SelectFilesButton"
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Click="SelectFilesButton_Click"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="SelectFilesButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Select files" />
+                <Button
+                    x:Name="SelectFilesButton"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Click="SelectFilesButton_Click"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="SelectFilesButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Select files" />
 
-            <Button
-                x:Name="RestoreSourceButton"
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Command="{Binding RestoreSourceCommand}"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="RestoreSourceButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Restore names" />
+                <Button
+                    x:Name="RestoreSourceButton"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding RestoreSourceCommand}"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="RestoreSourceButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Restore names" />
 
-            <Separator />
+                <Separator />
 
-            <Button
-                x:Name="UpButton"
-                Grid.Row="2"
-                Grid.Column="0"
-                Command="{Binding MoveRowUpCommand}"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="UpButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Move selected row up" />
+                <Button
+                    x:Name="UpButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Command="{Binding MoveRowUpCommand}"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="UpButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Move selected row up" />
 
-            <Button
-                x:Name="DownButton"
-                Grid.Row="2"
-                Grid.Column="1"
-                Command="{Binding MoveRowDownCommand}"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="DownButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Move selected row down" />
+                <Button
+                    x:Name="DownButton"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Command="{Binding MoveRowDownCommand}"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="DownButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Move selected row down" />
 
-            <Separator />
+                <Separator />
 
-            <Button
-                x:Name="PreviewButton"
-                Grid.Row="4"
-                Grid.Column="0"
-                Command="{Binding PreviewCommand}"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="PreviewButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Preview names" />
+                <Button
+                    x:Name="PreviewButton"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Command="{Binding PreviewCommand}"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="PreviewButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Preview names" />
 
-            <Button
-                x:Name="RenameButton"
-                Grid.Row="4"
-                Grid.Column="1"
-                Command="{Binding RenameCommand}"
-                Content=""
-                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                MouseEnter="RenameButton_MouseEnter"
-                MouseLeave="Button_MouseLeave"
-                ToolTip="Rename files" />
-        </ToolBar>
+                <Button
+                    x:Name="RenameButton"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Command="{Binding RenameCommand}"
+                    Content=""
+                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                    MouseEnter="RenameButton_MouseEnter"
+                    MouseLeave="Button_MouseLeave"
+                    ToolTip="Rename files" />
+            </StackPanel>
+        </Border>
         <!--#endregion ToolBar-->
 
         <Grid Grid.Row="1">
