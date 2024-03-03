@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RenameWizard.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="25"
     d:DesignWidth="100"
     mc:Ignorable="d">
     <Grid>
@@ -22,26 +21,20 @@
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Button
                 Width="15"
+                Height="12"
                 Margin="0"
-                Padding="1"
-                Click="IncrementButton_Click">
-                <Button.Content>
-                    <Viewbox Stretch="None">
-                        <Path Data="M0,8 L4,0 L8,8 Z" Fill="Black" />
-                    </Viewbox>
-                </Button.Content>
-            </Button>
+                Padding="0 -2 0 0"
+                Click="IncrementButton_Click"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" />
             <Button
                 Width="15"
+                Height="12"
                 Margin="0"
-                Padding="1"
-                Click="DecrementButton_Click">
-                <Button.Content>
-                    <Viewbox Stretch="None">
-                        <Path Data="M0,0 L4,8 L8,0 Z" Fill="Black" />
-                    </Viewbox>
-                </Button.Content>
-            </Button>
+                Padding="0 0 0 0"
+                Click="DecrementButton_Click"
+                Content=""
+                FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" />
         </StackPanel>
     </Grid>
 </UserControl>
